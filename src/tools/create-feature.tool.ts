@@ -4,17 +4,12 @@ import fs from "fs/promises";
 import path from "path";
 import { resolveDocsDir } from "../helpers/directory.helper.js";
 
-const DOC_TITLES: Record<"requirements" | "technical_design", string> = {
-  requirements: "Anforderungen",
-  technical_design: "Technisches Design",
-};
-
 export function registerCreateFeatureTool(server: McpServer) {
   server.registerTool(
     "spec_create",
     {
       description:
-        "Creates a new feature folder and initializes the specified document (requirements or technical_design).",
+        "Creates a new feature folder (prefixed with FEAT-) and initializes both requirements.md and technical_design.md.",
       inputSchema: {
         workspace_path: z
           .string()
@@ -24,42 +19,43 @@ export function registerCreateFeatureTool(server: McpServer) {
         feature_name: z
           .string()
           .describe(
-            "The name of the feature (used as the folder name, e.g., 'user-login').",
+            "The name of the feature without prefix (e.g., 'user-login'). The folder will be created as 'FEAT-user-login'.",
           ),
-        type: z
-          .enum(["requirements", "technical_design"])
-          .describe("The type of document to create."),
       },
     },
-    async ({ workspace_path, feature_name, type }) => {
+    async ({ workspace_path, feature_name }) => {
       const docsDir = await resolveDocsDir(workspace_path);
-      const featureDir = path.join(docsDir, feature_name);
-      await fs.mkdir(featureDir, { recursive: true });
+      const folderName = `FEAT-${feature_name}`;
+      const featureDir = path.join(docsDir, folderName);
 
-      const filePath = path.join(featureDir, `${type}.md`);
       try {
-        await fs.access(filePath);
+        await fs.access(featureDir);
         return {
           content: [
             {
               type: "text",
-              text: `Document ${type}.md already exists for feature '${feature_name}'.`,
+              text: `Feature '${folderName}' already exists.`,
             },
           ],
           isError: true,
         };
       } catch {
-        const title = DOC_TITLES[type];
+        await fs.mkdir(featureDir, { recursive: true });
         await fs.writeFile(
-          filePath,
-          `# ${title}: ${feature_name}\n\n`,
+          path.join(featureDir, "requirements.md"),
+          `# Anforderungen: ${feature_name}\n\n`,
+          "utf8",
+        );
+        await fs.writeFile(
+          path.join(featureDir, "technical_design.md"),
+          `# Technisches Design: ${feature_name}\n\n`,
           "utf8",
         );
         return {
           content: [
             {
               type: "text",
-              text: `Successfully created ${type}.md for feature '${feature_name}'.`,
+              text: `Successfully created '${folderName}' with requirements.md and technical_design.md.`,
             },
           ],
         };
