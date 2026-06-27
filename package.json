@@ -1,0 +1,18 @@
+{
+  "name": "feature-docs-mcp",
+  "version": "1.0.0",
+  "description": "MCP Server for managing Spec-driven documents (Requirements, Technical Design)",
+  "main": "build/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && node -e \"const fs=require('fs');fs.cpSync('src/prompts','build/prompts',{recursive:true})\"",
+    "start": "node build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
