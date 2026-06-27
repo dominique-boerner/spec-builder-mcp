@@ -1,5 +1,5 @@
 {
-  "name": "feature-docs-mcp",
+  "name": "spec-builder-mcp",
   "version": "1.0.0",
   "description": "MCP Server for managing Spec-driven documents (Requirements, Technical Design)",
   "main": "build/index.js",
