@@ -2,7 +2,13 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import fs from "fs/promises";
 import path from "path";
+import { fileURLToPath } from "url";
 import { resolveDocsDir } from "../helpers/directory.helper.js";
+
+const templatesDir = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../templates",
+);
 
 export function registerCreateFeatureTool(server: McpServer) {
   server.registerTool(
@@ -40,22 +46,34 @@ export function registerCreateFeatureTool(server: McpServer) {
           isError: true,
         };
       } catch {
+        const [requirementsTemplate, technicalDesignTemplate] =
+          await Promise.all([
+            fs.readFile(path.join(templatesDir, "requirements.md"), "utf8"),
+            fs.readFile(
+              path.join(templatesDir, "technical_design.md"),
+              "utf8",
+            ),
+          ]);
+
+        const fill = (template: string) =>
+          template.replaceAll("{{feature_name}}", feature_name);
+
         await fs.mkdir(featureDir, { recursive: true });
         await fs.writeFile(
           path.join(featureDir, "requirements.md"),
-          `# Requirements: ${feature_name}\n\n`,
+          fill(requirementsTemplate),
           "utf8",
         );
         await fs.writeFile(
           path.join(featureDir, "technical_design.md"),
-          `# Technical Design: ${feature_name}\n\n`,
+          fill(technicalDesignTemplate),
           "utf8",
         );
         return {
           content: [
             {
               type: "text",
-              text: `Successfully created '${folderName}' with requirements.md and technical_design.md.`,
+              text: `Successfully created '${folderName}' with requirements.md and technical_design.md.\n\nUse the following templates as the exact structure when calling spec_update:\n\n--- requirements.md ---\n${fill(requirementsTemplate)}\n\n--- technical_design.md ---\n${fill(technicalDesignTemplate)}`,
             },
           ],
         };

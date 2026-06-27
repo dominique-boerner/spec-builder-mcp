@@ -2,7 +2,13 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import fs from "fs/promises";
 import path from "path";
+import { fileURLToPath } from "url";
 import { resolveDocsDir } from "../helpers/directory.helper.js";
+
+const templatesDir = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../templates",
+);
 
 export function registerUpdateFeatureTool(server: McpServer) {
   server.registerTool(
@@ -41,6 +47,30 @@ export function registerUpdateFeatureTool(server: McpServer) {
             {
               type: "text",
               text: `Document ${type}.md not found for feature 'FEAT-${feature_name}'. Create it first with spec_create.`,
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      const templateFile = type === "requirements" ? "requirements.md" : "technical_design.md";
+      const template = await fs.readFile(path.join(templatesDir, templateFile), "utf8");
+
+      const requiredSections = template
+        .split("\n")
+        .filter((line) => line.startsWith("## "))
+        .map((line) => line.trim());
+
+      const missingSections = requiredSections.filter(
+        (section) => !content.includes(section),
+      );
+
+      if (missingSections.length > 0) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: `Content is missing required sections: ${missingSections.join(", ")}.\n\nRequired template structure:\n\n${template}`,
             },
           ],
           isError: true,
