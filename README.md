@@ -35,6 +35,16 @@ your-project/
 | `spec_search` | Searches feature names and document contents for a query |
 | `spec_create` | Creates a new feature folder and initializes a document |
 
+## Example
+
+An example specification generated with this tool is included in this repository:
+
+```
+FEAT-spec-wizard/
+├── requirements.md       # functional & non-functional requirements for the Spec Wizard itself
+└── technical_design.md   # architecture, components, and tool interaction flow
+```
+
 ## Setup
 
 ### 1. Build
