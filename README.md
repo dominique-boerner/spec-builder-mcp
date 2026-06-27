@@ -22,10 +22,10 @@ your-project/
 ### Workflow
 
 1. You trigger the `spec_wizard` prompt in your MCP client.
-2. The AI asks: *"What do you want to build?"*
+2. The AI asks: *"What do you want to build?"* — or skip this step by passing a file (e.g. `@ticket.json`, `@brief.md`), which the AI uses as the basis for the spec.
 3. It searches existing feature docs to check if the feature already exists.
-4. If it's new, it asks whether to start with **Requirements** or **Technical Design**.
-5. The document is created and filled out iteratively with you.
+4. If it's new, it creates the feature folder with both documents initialised from the built-in templates.
+5. Both documents are filled out iteratively (requirements first, then technical design) and saved with `spec_update`.
 
 ## Tools
 
@@ -92,6 +92,9 @@ src/
 ├── prompts/
 │   ├── sdd-workflow.prompt.json    # prompt metadata
 │   └── sdd-workflow.prompt.md      # prompt content sent to the AI
+├── templates/
+│   ├── requirements.md             # template for requirements documents
+│   └── technical_design.md        # template for technical design documents
 └── tools/
     ├── list-features.tool.ts
     ├── search-feature.tool.ts
