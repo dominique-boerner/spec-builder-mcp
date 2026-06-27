@@ -35,18 +35,28 @@ export function registerSearchFeatureTool(server: McpServer) {
 
         for (const feature of featureDirs) {
           if (feature.toLowerCase().includes(normalizedQuery)) {
-            matches.push(feature);
+            matches.push(`${feature} — matched folder name`);
             continue;
           }
           const reqPath = path.join(docsDir, feature, "requirements.md");
           const tdPath = path.join(docsDir, feature, "technical_design.md");
 
-          for (const file of [reqPath, tdPath]) {
+          let matched = false;
+          for (const [file, label] of [
+            [reqPath, "requirements.md"],
+            [tdPath, "technical_design.md"],
+          ] as [string, string][]) {
+            if (matched) break;
             try {
-              const content = await fs.readFile(file, "utf8");
-              if (content.toLowerCase().includes(normalizedQuery)) {
-                matches.push(feature);
-                break;
+              const lines = (await fs.readFile(file, "utf8")).split("\n");
+              const matchLine = lines.find((l) =>
+                l.toLowerCase().includes(normalizedQuery),
+              );
+              if (matchLine) {
+                matches.push(
+                  `${feature} — matched in ${label}: "${matchLine.trim()}"`,
+                );
+                matched = true;
               }
             } catch {
               /* file might not exist */
