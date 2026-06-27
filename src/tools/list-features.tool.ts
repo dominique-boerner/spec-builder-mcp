@@ -5,7 +5,7 @@ import { resolveDocsDir } from "../helpers/directory.helper.js";
 
 export function registerListFeaturesTool(server: McpServer) {
   server.registerTool(
-    "list_features",
+    "spec_list",
     {
       description:
         "Lists all documented features in the .docs/features directory of the workspace.",

@@ -11,7 +11,7 @@ const DOC_TITLES: Record<"requirements" | "technical_design", string> = {
 
 export function registerCreateFeatureTool(server: McpServer) {
   server.registerTool(
-    "create_feature",
+    "spec_create",
     {
       description:
         "Creates a new feature folder and initializes the specified document (requirements or technical_design).",

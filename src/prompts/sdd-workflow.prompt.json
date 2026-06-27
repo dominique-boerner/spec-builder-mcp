@@ -1,5 +1,5 @@
 {
-  "name": "start_sdd_workflow",
+  "name": "spec_wizard",
   "description": "Startet den strukturierten Software Design Document (SDD) Workflow zur Feature-Planung.",
   "textPath": "./sdd-workflow.prompt.md"
 }

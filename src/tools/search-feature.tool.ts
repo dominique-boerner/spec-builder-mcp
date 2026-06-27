@@ -6,7 +6,7 @@ import { resolveDocsDir } from "../helpers/directory.helper.js";
 
 export function registerSearchFeatureTool(server: McpServer) {
   server.registerTool(
-    "search_feature",
+    "spec_search",
     {
       description:
         "Searches existing feature documentation for a specific query to see if a feature already exists.",
