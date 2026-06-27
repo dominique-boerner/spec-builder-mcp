@@ -8,6 +8,7 @@ import sddPrompt from "./prompts/sdd-workflow.prompt.json" with { type: "json" }
 import { registerListFeaturesTool } from "./tools/list-features.tool.js";
 import { registerSearchFeatureTool } from "./tools/search-feature.tool.js";
 import { registerCreateFeatureTool } from "./tools/create-feature.tool.js";
+import { registerUpdateFeatureTool } from "./tools/update-feature.tool.js";
 
 const server = new McpServer({ name: "spec-builder-mcp", version: "1.0.0" });
 
@@ -15,6 +16,7 @@ const server = new McpServer({ name: "spec-builder-mcp", version: "1.0.0" });
 registerListFeaturesTool(server);
 registerSearchFeatureTool(server);
 registerCreateFeatureTool(server);
+registerUpdateFeatureTool(server);
 
 // Prompt
 server.registerPrompt(
