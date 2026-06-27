@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && node -e \"const fs=require('fs');fs.cpSync('src/prompts','build/prompts',{recursive:true})\"",
+    "build": "tsc && node scripts/copy-prompts.mjs",
     "start": "node build/index.js"
   },
   "dependencies": {
