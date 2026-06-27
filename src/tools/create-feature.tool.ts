@@ -2,13 +2,9 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import fs from "fs/promises";
 import path from "path";
-import { fileURLToPath } from "url";
-import { resolveDocsDir } from "../helpers/directory.helper.js";
+import { resolveDocsDir, resolveTemplatesDir } from "../helpers/directory.helper.js";
 
-const templatesDir = path.join(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../templates",
-);
+const templatesDir = resolveTemplatesDir();
 
 export function registerCreateFeatureTool(server: McpServer) {
   server.registerTool(
