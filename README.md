@@ -35,6 +35,7 @@ your-project/
 | `spec_search` | Searches feature names and document contents for a query |
 | `spec_create` | Creates a new feature folder (`FEAT-{name}/`) with both documents |
 | `spec_update` | Writes content to an existing feature's `requirements.md` or `technical_design.md` |
+| `spec_delete` | Permanently deletes a feature folder and all its documents |
 
 ## Example
 
