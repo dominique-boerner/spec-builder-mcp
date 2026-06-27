@@ -33,7 +33,8 @@ your-project/
 |---|---|
 | `spec_list` | Lists all documented features in `.docs/features/` |
 | `spec_search` | Searches feature names and document contents for a query |
-| `spec_create` | Creates a new feature folder and initializes a document |
+| `spec_create` | Creates a new feature folder (`FEAT-{name}/`) with both documents |
+| `spec_update` | Writes content to an existing feature's `requirements.md` or `technical_design.md` |
 
 ## Example
 
