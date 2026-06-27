@@ -43,12 +43,12 @@ export function registerCreateFeatureTool(server: McpServer) {
         await fs.mkdir(featureDir, { recursive: true });
         await fs.writeFile(
           path.join(featureDir, "requirements.md"),
-          `# Anforderungen: ${feature_name}\n\n`,
+          `# Requirements: ${feature_name}\n\n`,
           "utf8",
         );
         await fs.writeFile(
           path.join(featureDir, "technical_design.md"),
-          `# Technisches Design: ${feature_name}\n\n`,
+          `# Technical Design: ${feature_name}\n\n`,
           "utf8",
         );
         return {
