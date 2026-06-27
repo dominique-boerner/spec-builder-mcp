@@ -43,7 +43,7 @@ server.registerPrompt(
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Feature Docs MCP server running on stdio");
+  console.error("spec-builder-mcp running on stdio");
 }
 
 main().catch((error) => {
