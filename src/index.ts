@@ -4,7 +4,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import fs from "fs/promises";
 import path from "path";
-import sddPrompt from "./prompts/sdd-workflow.prompt.json" with { type: "json" };
+import sddPrompt from "./prompts/wizard-workflow.prompt.json" with { type: "json" };
 import { registerListFeaturesTool } from "./tools/list-features.tool.js";
 import { registerSearchFeatureTool } from "./tools/search-feature.tool.js";
 import { registerCreateFeatureTool } from "./tools/create-feature.tool.js";
