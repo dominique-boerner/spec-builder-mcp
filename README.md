@@ -95,5 +95,7 @@ src/
 └── tools/
     ├── list-features.tool.ts
     ├── search-feature.tool.ts
-    └── create-feature.tool.ts
+    ├── create-feature.tool.ts
+    ├── update-feature.tool.ts
+    └── delete-feature.tool.ts
 ```
